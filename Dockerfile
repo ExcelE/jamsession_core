@@ -1,5 +1,6 @@
 FROM ubuntu:18.04
 
+
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && \
@@ -8,7 +9,7 @@ RUN apt-get update && \
 	add-apt-repository -y ppa:supercollider/ppa && \
 	add-apt-repository -y multiverse && \
 	apt-get update && \
-    apt-get install -y icecast2 darkice libasound2 libasound2-plugins alsa-utils alsa-oss jack-tools supercollider xvfb curl && \
+    apt-get install -y icecast2 darkice libasound2 libasound2-plugins alsa-utils alsa-oss jack-tools supercollider xvfb curl python-pip && \
     apt-get clean
 
 RUN curl -o forego.tgz https://bin.equinox.io/c/ekMN3bCZFUn/forego-stable-linux-amd64.tgz && \
@@ -27,9 +28,7 @@ COPY radio.sc /radio.sc
 
 COPY Procfile Procfile
 
-RUN apt install python3-pip
 RUN pip install FoxDot
-
 RUN sclang FoxDot.start
 
 EXPOSE 8000
